@@ -8,51 +8,42 @@ namespace Calculator
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            int num1;
-            int num2;
+            Console.WriteLine($"Hello ! Welcome to the Calculator program.");
 
-            int result;
-
-            string answer;
-
-            Console.WriteLine("Hello ! Welcome to the Calculator program.");
-            Console.WriteLine("Please enter your first number: ");
-
-            num1 = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter your second number: ");
-
-            num2 = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("What type of operation would you like to do?");
-            Console.WriteLine("Please enter a for Addition, s for Subtraction, m for Multification or any other key for Devision !!!");
-
-            answer = Console.ReadLine();
-
-            if (answer == "a")
+            try
             {
-                result = num1 + num2;
-            }
-            else if (answer == "s")
-            {
-                result = num1 - num2;
-            }
-            else if (answer == "m")
-            {
-                result = num1 * num2;
-            }
-            else
-            {
-                result = num1 / num2;
-            }
+                int num1 = ReadIntegerInput("num1");
+                int num2 = ReadIntegerInput("num2");
 
-
-            Console.WriteLine("The Result is "+ result);
-            Console.WriteLine("Thank you for using the program !!");
-
+                int result = num1 / num2;
+                Console.WriteLine($"The Result is {result} ");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception: {e.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("Thank you for using the program !!");
+            }
             Console.ReadKey();
+        }
+
+        static int ReadIntegerInput(string prompt)
+        {
+            while (true)
+            {
+                 Console.Write($"Enter {prompt}: ");
+                 string input = Console.ReadLine() ?? "";
+                 if (!int.TryParse(input,out int result) || string.IsNullOrEmpty(input))
+                    {
+                        Console.WriteLine($"Invalid input! Please enter a valid integer!!");
+                        continue;
+                    }
+                  return Convert.ToInt32(input);
+            }
         }
     }
 }
